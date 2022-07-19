@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>다섯 번째 계절</title>
+
+    <!-- font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
+
+    <!-- bootstrap -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css"
+        integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="./style.css">
+</head>
+
+<body class="container">
+    <!-- 시작 페이지 -->
+    <article class="start">
+        <h1 class="main-title mt-5 text-center">다섯 번째 계절 테스트</h1>
+        <div class="seoyeon">
+            Seoyeon(with Eunbin, Gippeun)
+        </div>
+        <button type="button" class="btn-start btn btn-primary mt-5" onclick="start();">나의 계절 찾으러 가기</button>
+    </article>
+
+    <!-- 문제 페이지 -->
+    <article class="question">
+        <div class="progress mt-5">
+            <div class="progress-bar" role="progressbar" style="width: calc(100/12*1%)"></div>
+        </div>
+        <h2 id="title" class="question-content text-center mt-5">문제</h2>
+
+        <input id="type" type="hidden" value="AB">
+
+        <div class="rectangle mt-5"></div>
+        <button id="X" type="button" class="btn-answer btn btn-primary pt-5 pb-5">Primary</button>
+        <div class="mid-rectangle"></div>
+        <button id="Y" type="button" class="btn-answer btn btn-primary pt-5 pb-5">Primary</button>
+        <div class="rectangle"></div>
+
+    </article>
+
+    <!-- 결과 페이지 -->
+    <article class="result">
+        <!-- 이미지 바꿀 때 밑에 코드 삭제하고 바꾸기 -->
+        <!-- <img id="img" class="rounded-circle mt-5" src="./lion.jpg" alt="season"> -->
+        <h2 id="season" class="result-season text-center mt-5">계절</h2>
+        <h3 id="explain" class="result-explain text-center mt-5">설명</h3>
+        <div class="friend-title text-center mt-5">나의 계절 궁합은?</div>
+        <div id="table">
+            <table>
+                <tr>
+                    <td>
+                        <div class="like-title">어울리는<br>계절</div>
+                        <h2 id="oseason" class="season-title">계절</h2>
+                    </td>
+                    <td>
+                        <div class="dislike-title">피해야 하는<br>계절</div>
+                        <h2 id="xseason" class="season-title">계절</h2>
+                    </td>
+                </tr>
+            </table>
+
+    <!-- 답변 카운팅 -->
+    <input type="hidden" id="AB" value="0">
+    <input type="hidden" id="CD" value="0">
+    <input type="hidden" id="EF" value="0">
+    <input type="hidden" id="GH" value="0">
+
+    <!-- bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx"
+        crossorigin="anonymous"></script>
+
+    <script>
+        var num = 1;
+
+        // 문제
+        var q = {
+            // 짝사랑
+            1: { "title": "짝사랑을 할 때 나는?", "type": "AB", "X": "내 마음을 적극적으로 표현한다", "Y": "혼자 끙끙 앓는다" },
+
+            2: { "title": "짝사랑 상대를 생각할 때 나는?", "type": "AB", "X": "이 사람과 잘 되면 이것도 하고 저것도 하고 너무 설레!", "Y": "이 사람과 내가 현실적으로 잘 될 수 있을까?" },
+
+            3: { "title": "짝사랑 그/그녀가 다른 사람을 좋아한다는 소식을 들었을 때 나는?", "type": "AB", "X": "아직 썸 타거나 사귀는 건 아니잖아? 내 매력을 어필하며 기다린다", "Y": "눈물을 머금고 그/그녀의 사랑을 응원한다" },
+
+            // 썸
+            4: { "title": "갑자기 너무 보고 싶은 썸남/썸녀에게 나는?", "type": "CD", "X": "보고 싶으면 봐야지, 당장 찾아간다", "Y": "'내일 이거 보러 갈래?'라고 최대한 빠른 약속을 잡는다" },
+
+            5: { "title": "썸남/썸녀와 함께 길을 걷다가 얼굴천재 남사친/여사친을 마주친 나는?", "type": "CD", "X": "내가 더 낫다고 생각하며 신경 쓰지 않는다", "Y": "아무렇지 않은 척 집에 가서 SNS를 찾아본다" },
+
+            6: { "title": "썸남/썸녀에게 고백하기로 마음 먹은 나는?", "type": "CD", "X": "계획은 필요 없어! 이때다 싶을 때 내 마음을 고백한다", "Y": "고백할 시간, 장소, 멘트를 모두 정해놓고 계획에 맞춰 움직인다" },
+
+            // 연애
+            7: { "title": "어떤 데이트를 선호하나요?", "type": "EF", "X": "예쁘게 차려 입고 인스타 핫플 데이트", "Y": "편안한 옷차림으로 둘만의 시간을 즐기는 집데이트" },
+
+            8: { "title": "치열한 일주일이 지나고 드디어 주말, 연인과 함께하는 시간은?", "type": "EF", "X": "아침부터 밤까지 껌딱지처럼 꼭 붙어있기", "Y": "늦잠도 자고 혼자만의 시간도 보낸 뒤 저녁 한 끼 같이 먹기" },
+
+            9: { "title": "내 애인을 친구들에게 소개 할 때 당신은?", "type": "EF", "X": "내 친구는 네 친구 스킬 시전, 10년지기 짱친 만들어주기", "Y": "내 애인은 나만 볼 거니까 간단하게 소개만" },
+
+            // 이별
+            10: { "title": "이별 직후 당신은?", "type": "GH", "X": "마음 정리는 이미 다 끝냈다. 자유를 만끽하기", "Y": "갑작스런 이별, 미련이 남아 밤마다 인스타 염탐" },
+
+            11: { "title": "오래 만났던 전애인의 새 연애 소식을 들었다. 당신은?", "type": "GH", "X": "드디어 날 잊었나보네. 행복해라!", "Y": "분명 다 잊었다고 생각했는데 자꾸만 신경쓰이고 기분이 좋지 않다." },
+
+            12: { "title": "헤어진 연인이 친구로 지내자고 한다. 어떡하지?", "type": "GH", "X": "좋아. 우리가 서로 쌩까는 건 생각할 수 없어", "Y": "미친 거야? 난 너랑 절대 친구같은 거 못 해" },
+        }
+
+        // 결과
+        var result = {
+            // 이미지 추가는 밑에 코드 보고 하기
+            // "ENTJ": { "season": "호랑이", "explian": "호랑이 설명", "img": "lion.jpg" },
+
+            // 봄
+            "BCEG": { "season": "선분홍 봄", "explain": "당신의 계절은 '선분홍 봄입니다. 오늘 하루는 '레드벨벳의 Feel My Rhythm'을 들으면서 벚꽃이 날리는 선분홍 봄을 떠올려 보면 어떨까요?" },
+            "ADEG": { "season": "향긋한 봄", "explain": "당신의 계절은 '향긋한 봄'입니다. 오늘 하루는 '볼빨간 사춘기의 프리지아'를 들으면서 봄의 꽃 향기를 떠올려 보면 어떨까요?" },
+            "ACFG": { "season": "설레는 봄", "explain": "당신의 계절은 '설레는 봄'입니다. 오늘 하루는 '버스커 버스커의 벚꽃엔딩'을 들으면서 과거에 설렜던 봄, 앞으로 설렐 봄을 떠올려 보면 어떨까요?" },
+            "ACEH": { "season": "아련한 봄", "explain": "당신의 계절은 '아련한 봄'입니다. 오늘 하루는 '에이프릴의 봄의 나라 이야기'를 들으면서 잡지 못하는 지나간 겨울을 떠올려 보면 어떨까요?" },
+
+            // 여름
+            "ACEG": { "season": "뜨거운 여름", "explain": "당신의 계절은 '뜨거운 여름'입니다. 오늘 하루는 'F(x)의 Hot Summer'를 들으면서 뜨거운 여름을 느껴보는 건 어떨까요?" },
+            "ACFH": { "season": "추억의 여름", "explain": "당신의 계절은 '추억의 여름'입니다. 오늘 하루는 '여자친구의 너 그리고 나'를 들으면서 학창 시절의 여름을 떠올려 보는 건 어떨까요?" },
+            "BCEH": { "season": "상큼한 여름", "explain": "당신의 계절은 '상큼한 여름'입니다. 오늘 하루는 '레드벨벳의 빨간맛'을 들으면서 여름 과일의 상큼함을 느껴보는 건 어떨까요?" },
+            "BDEG": { "season": "시원한 여름", "explain": "당신의 계절은 '시원한 여름'입니다. 오늘 하루는 '미연의 Drive'를 들으면서 시원한 바다 바람을 떠올려 보는 건 어떨까요?" },
+
+            // 가을
+            "ADFH": { "season": "고요한 가을", "explain": "당신의 계절은 '고요한 가을'입니다. 오늘 하루는 '악동뮤지션의 시간과 낙엽'을 들으면서 지나간 시간을 회상해 보는 건 어떨까요?" },
+            "BCFH": { "season": "선선한 가을", "explain": "당신의 계절은 '선선한 가을'입니다. 오늘 하루는 '산들의 취기를 빌려'를 들으면서 선선한 가을 밤을 떠올려 보는 건 어떨까요?" },
+            "BDEH": { "season": "다색의 가을", "explain": "당신의 계절은 '다색의 가을' 입니다. 오늘 하루는 '태연의 11:11'을 들으면서 괜히 센치해지는 가을을 떠올려 보는 건 어떨까요?" },
+            "BDFG": { "season": "차분한 가을", "explain": "당신의 계절은 '차분한 가을'입니다. 오늘 하루는 '아이유의 가을 아침'을 들으면서 차분하게 하루를 시작해보는 건 어떨까요?" },
+
+            // 겨울
+            "ADEH": { "season": "들뜨는 겨울", "explain": "당신의 계절은 '들뜨는 겨울'입니다. 오늘 하루는 '빌리의 Snowy Night'를 들으면서 다가올 첫 눈과 크리스마스를 기다려보는 건 어떨까요?" },
+            "BCFG": { "season": "새하얀 겨울", "explain": "당신의 계절은 '새하얀 겨울'입니다. 오늘 하루는 '엑소의 첫눈'을 들으면서 사랑하는 이와 함께 맞은 첫 눈을 떠올려 보는 건 어떨까요?" },
+            "ADFG": { "season": "침묵의 겨울", "explain": "당신의 계절은 '침묵의 겨울'입니다. 오늘 하루는 '백예린의 November Song'을 들으면서 아무 말 없이 혼자만의 겨울을 느껴보는 건 어떨까요?" },
+            "BDFH": { "season": "차가운 겨울", "explain": "당신의 계절은 '차가운 겨울'입니다. 오늘 하루는 '뎁트의 어쩌면 마지막이 될까봐'를 들으면서 지금은 차갑지만 한때 따뜻했던 지나간 인연과의 추억을 회상해 보는 건 어떨까요?" },
+        }
+        function start() {
+            $(".start").hide();
+            $(".question").show();
+            next();
+        }
+        $("#X").click(function () {
+            var type = $("#type").val();
+            var preValue = $("#" + type).val();
+            $("#" + type).val(parseInt(preValue) + 1);
+            next();
+        });
+        $("#Y").click(function () {
+            next();
+        });
+        function next() {
+            if (num == 13) {
+                $(".question").hide();
+                $(".result").show();
+                var mbti = "";
+                var xmbti = "";
+                var ombti = "";
+                ($("#AB").val() < 2) ? mbti += "B" : mbti += "A";
+                ($("#CD").val() < 2) ? mbti += "D" : mbti += "C";
+                ($("#EF").val() < 2) ? mbti += "F" : mbti += "E";
+                ($("#GH").val() < 2) ? mbti += "H" : mbti += "G";
+
+                ($("#AB").val() < 2) ? xmbti += "A" : xmbti += "B";
+                ($("#CD").val() < 2) ? xmbti += "C" : xmbti += "D";
+                ($("#EF").val() < 2) ? xmbti += "E" : xmbti += "F";
+                ($("#GH").val() < 2) ? xmbti += "G" : xmbti += "H";
+
+                ($("#AB").val() < 2) ? ombti += "B" : ombti += "A";
+                ($("#CD").val() < 2) ? ombti += "D" : ombti += "C";
+                ($("#EF").val() < 2) ? ombti += "F" : ombti += "E";
+                ($("#GH").val() < 2) ? ombti += "G" : ombti += "H";
+
+                // $("#img").attr("src", result[mbti]["img"]);
+                $("#season").html(result[mbti]["season"]);
+                $("#explain").html(result[mbti]["explain"]);
+                $("#xseason").html(result[xmbti]["season"]);
+                $("#oseason").html(result[ombti]["season"]);
+            } else {
+                $(".progress-bar").attr('style', 'width: calc(100/12*' + num + '%)');
+                $("#title").html(q[num]["title"]);
+                $("#type").val(q[num]["type"]);
+                $("#X").html(q[num]["X"]);
+                $("#Y").html(q[num]["Y"]);
+                num++;
+            }
+        }
+    </script>
+
+</body>
+
+</html>

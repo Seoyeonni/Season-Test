@@ -1,0 +1,186 @@
+/* 전체 */
+@font-face {
+    font-family: 'EarlyFontDiary';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_220508@1.0/EarlyFontDiary.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+article {
+    display: flex;
+    flex-direction: column;
+}
+
+.question {
+    display: none;
+}
+
+.result {
+    display: none;
+}
+
+body {
+    background-color: #ffeeee;
+    color: #ffffff;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+* {
+    font-family: 'EarlyFontDiary';
+}
+
+button {
+    border-radius: 10px !important;
+}
+
+/* 시작 페이지 */
+.main-title {
+    font-size: 30px;
+    font-weight: bold;
+    color: #1f1f1f;
+}
+
+.seoyeon {
+    text-align: center;
+    font-size: 10px;
+}
+
+.btn-start {
+    font-size: 15px;
+    font-weight: bold;
+    color: #1f1f1f;
+}
+
+.btn-start,
+.btn-start:visited,
+.btn-start:hover,
+.btn-start:active {
+    font-size: 15px;
+    color: #ffffff;
+    background-color: #de7272;
+    border: #de7272;
+}
+
+.btn-start:hover {
+    background-color: #ffffff;
+    border: #ffffff;
+    color: #1f1f1f;
+}
+
+/* 문제 페이지 */
+.btn-answer,
+.btn-answer:hover,
+.btn-answer:active,
+.btn-answer:focus {
+    background-color: #ffffff;
+    border: #ffffff;
+    width: 288px;
+    margin: 0 auto;
+    font-size: 15px;
+    font-weight: bold;
+    color: #1f1f1f;
+}
+
+.btn-answer:hover {
+    background-color: #de7272 !important;
+    border: #ffffff !important;
+    width: 288px;
+    margin: 0 auto;
+    font-size: 15px;
+    font-weight: bold;
+    color: #ffffff;
+}
+
+.question-content {
+    font-size: 30px;
+    font-weight: bold;
+    color: #1f1f1f;
+}
+
+.progress-bar {
+    background-color: #de7272;
+}
+
+.progress {
+    background-color: #ffffff;
+    border-radius: 10px;
+}
+
+/* 결과 페이지 */
+.result-message {
+    color: #1f1f1f;
+    margin: 0 auto;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.result-season {
+    font-size: 30px;
+    font-weight: bold;
+    color: #1f1f1f;
+}
+
+.result-explain {
+    padding: 5%;
+    background-color: #ffffff;
+    font-size: 15px;
+    font-weight: bold;
+    color: #1f1f1f;
+    border: 1px solid #ffffff;
+    border-radius: 10px;
+}
+
+
+.friend-title {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    padding: 2%;
+    background-color: #de7272;
+    font-size: 20px !important;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.like-title, .dislike-title {
+    color: #de7272;
+}
+
+#table {
+    margin: 0 auto;
+    width: 100%;
+    border: 1px solid #ffffff;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    background-color: #ffffff;
+}
+
+table {
+    width: 100%;
+    padding: 30px;
+    margin: 30px;
+    margin-right: auto;
+    margin-left: auto;
+    color: #1f1f1f;
+    font-weight: bold;
+    background-color: #ffffff;
+}
+
+td {
+    width: 50%;
+    text-align: center;
+    padding-left: 10%;
+    padding-right: 10%;
+}
+
+#oseason {
+    margin-top: 20px;
+}
+
+#xseason {
+    margin-top: 20px;
+}
+
+.kakao {
+    width: 34.5px;
+    border-radius: 10px;
+}
